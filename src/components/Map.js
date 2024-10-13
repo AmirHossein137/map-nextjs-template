@@ -80,7 +80,8 @@ const Map = () => {
 
   console.log(addressUser);
 
-  const handleSearch = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault();
     const { lat, lng } = await getSearchLocation(search);
     mapRef.current?.flyTo({ lat, lng }, 14);
   };
@@ -93,7 +94,7 @@ const Map = () => {
 
   return (
     <div className="flex flex-col gap-5 w-full bg-white p-6 max-w-4xl h-[800px] rounded-xl border border-gray-300 shadow-sm">
-      <div className="flex w-full items-center gap-4">
+      <form className="flex w-full items-center gap-4">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -102,12 +103,13 @@ const Map = () => {
           type="text"
         />
         <button
+          type="submit"
           className="bg-rose-600 text-white h-12 px-9 rounded-lg"
           onClick={handleSearch}
         >
           جستجو
         </button>
-      </div>
+      </form>
       <MapContainer
         center={position}
         zoom={13}
